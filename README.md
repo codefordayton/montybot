@@ -1,6 +1,6 @@
 # MontyBot experiments #
 
-Experimenting with using (LangChain)[https://python.langchain.com/en/latest/modules/chains/examples/sqlite.html] to provide natural language queries against the county parcel data.
+Experimenting with using [LangChain](https://python.langchain.com/en/latest/modules/chains/examples/sqlite.html) to provide natural language queries against the county parcel data.
 
 ![Good Image](img/good.png)
 
@@ -8,7 +8,7 @@ Experimenting with using (LangChain)[https://python.langchain.com/en/latest/modu
 
 As with a lot of projects, a fair portion of the work here is cleaning and preparing the data.
 
-We are starting with two of our standard data files, the monthly taxroll.csv [from her](http://www.mctreas.org/mctreas/fdpopup.cfm?dtype=TR) file and the GIS group's Parcel Shapefile [here](http://www.mcauditor.org/downloads/Shape_files/SHAPEFILES_PARCELLINES_ROW_OLDLOT.zip). Neither file is included in the repo due to their size.
+We are starting with two of our standard data files, the monthly taxroll.csv [from here](http://www.mctreas.org/mctreas/fdpopup.cfm?dtype=TR) file and the GIS group's Parcel Shapefile [here](http://www.mcauditor.org/downloads/Shape_files/SHAPEFILES_PARCELLINES_ROW_OLDLOT.zip). Neither file is included in the repo due to their size.
 
 ### Step 1: Generate the centroid file ###
 
