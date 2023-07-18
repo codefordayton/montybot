@@ -1,3 +1,5 @@
 centroids.dbm
 *.csv
 *.db
+.env
+.ipynb_checkpoints/

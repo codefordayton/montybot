@@ -3,21 +3,32 @@ import dbm
 import csv
 import sys
 
+
+def get_luc():
+    lucs = {} 
+    with open("land_use_codes.csv") as f:
+        lucs = {int(k): v.strip() for k,v in (line.split('|') for line in f)}
+    return lucs
+
 def clean_csv(argv):
     taxroll_file = argv[1]
     centroid_file = argv[2]
     db = dbm.open(centroid_file, 'r')
 
+    lucs = get_luc()
+
     daytonprops = open('daytonprops.csv', 'w')
     to_remove = ['TXYR','HLF1CHG','HLF2CHG','HLF1RED','HLF2RED','HLF1ADJ',
          'HLF2ADJ','HLF1RLBK','HLF2RLBK','HLF1HMSD','HLF2HMSD','HLF1HMRB',
          'HLF2HMRB','HLF1PEN','HLF2PEN','HLF1SPASMTS','HLF2SPASMTS','HLF1AMTDUE',
-         'HLF2AMTDUE','HLF1DAYCRDT','HLF2DAYCRDT']
+         'HLF2AMTDUE','HLF1DAYCRDT','HLF2DAYCRDT','AETASMTLAND','AETASMTBLDG',
+         'AETASMTTOTAL','AETTAXABLELAND','AETTAXABLEBLDG','AETTAXABLETOTAL',
+         'LEGAL1', 'LEGAL2', 'LEGAL3']
 
     error_count = 0
     with open(taxroll_file) as csvfile:
         reader = csv.DictReader(csvfile)
-        extended_names = reader.fieldnames + ['lat', 'lon']
+        extended_names = reader.fieldnames + ['lat', 'lon', 'luc_desc']
         for item in to_remove:
             extended_names.remove(item)
         extended_writer = csv.DictWriter(daytonprops, fieldnames=extended_names)
@@ -30,6 +41,7 @@ def clean_csv(argv):
                 extended_row = row
                 extended_row['lat'] = latlon[0].decode("utf-8") 
                 extended_row['lon'] = latlon[1].decode("utf-8")
+                extended_row['luc_desc'] = lucs.get(int(row['LUC']), '')
                 for item in to_remove:
                     del extended_row[item]
                 for item in extended_names:
